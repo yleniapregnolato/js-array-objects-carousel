@@ -25,3 +25,30 @@ const images = [
     text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
   },
 ];
+
+// MILESTONE 1
+// stampo tutte le immagini in pagina
+
+const carouselContainer = document.querySelector(".my-carousel-images");
+
+images.forEach(curImages => {
+  console.log(curImages);
+
+  const slideElem = `
+  <div class="my-carousel-item active" carousel-item="1">
+    <img
+      class="img-fluid"
+      src="${curImages.image}"
+      alt="Marvel's Spiderman Miles Morale picture"
+    />
+    <div class="item-description px-3">
+     <h2>${curImages.title}</h2>
+      <p>
+        ${curImages.text}
+      </p>
+    </div>
+  </div>
+  `;
+
+  carouselContainer.innerHTML += slideElem;
+});
