@@ -31,11 +31,15 @@ const images = [
 
 const carouselContainer = document.querySelector(".my-carousel-images");
 
-images.forEach(curImages => {
+const carouselPreview = document.querySelector(".my-thumbnails");
+
+images.forEach((curImages, index) => {
   console.log(curImages);
 
+  let isActive = index === 0 ? "active" : "";
+
   const slideElem = `
-  <div class="my-carousel-item active" carousel-item="1">
+  <div class="my-carousel-item ${isActive}" carousel-item="${index}">
     <img
       class="img-fluid"
       src="${curImages.image}"
@@ -47,8 +51,41 @@ images.forEach(curImages => {
         ${curImages.text}
       </p>
     </div>
-  </div>
-  `;
+  </div>`;
 
   carouselContainer.innerHTML += slideElem;
+
+  // stampo nel DOM le immagini della preview
+
+  const previewElem = `
+  <img
+    class="img-fluid my-thumbnail active"
+    src="${curImages.image}"
+    alt="Thumbnail of Marvel's Spiderman Miles Morale picture"
+  />
+  `;
+
+  carouselPreview.innerHTML += previewElem;
+});
+
+// prelevo i bottoni e aggiungo event listener 
+
+const prevBtn = document.querySelector(".my-prev-hook");
+const nextBtn = document.querySelector(".my-next-hook");
+
+let curSlide = 0;
+
+nextBtn.addEventListener("click", () => {
+
+// definisco una condizione per mandare avanti le immagini al click del bottone
+
+  console.log("next");
+  document.querySelector(`[carousel-item="${curSlide}"]`).classList.remove("active");
+
+  if (curSlide < document.querySelectorAll(".my-carousel-item").length - 1) {
+    curSlide++;
+  } else {
+    curSlide = 0;
+  }
+  document.querySelector(`[carousel-item="${curSlide}"]`).classList.add("active");
 });
